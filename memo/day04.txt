@@ -1,0 +1,9 @@
+STS 설치
+	구글에 sts 검색 > Tools-Spring 클릭 >
+	페이지 하단에 "Looking for Spring Tool Suite 3?" 부분 Spring Tool Suite 3 wiki 클릭
+	> Spring Tool Suit 3.9.18 부분 첫번째 다운로드 링크 클릭
+
+STS 설정
+	기존 서버 삭제 > 톰캐 9.0 서버 등록
+	인코딩 UTF-8로 설정
+	Run/Debug/Console 설정에서 Limit console output 체크 해제
