@@ -1,0 +1,9 @@
+Lombok 라이브러리
+	Lombok(롬복)을 이용하면 JAVA 개발 시 getter/setter, toString(), 생성자 등을
+	@Data등의 어노테이션을 통해 자동으로 생성해준다.
+
+Lombok 설치
+	Google에 lombok 검색 > Download - Project Lombok > Download 1.18.22
+	> 실행(java -jar lombok.jar) > Specify location 클릭 > STS.exe 경로 선택
+	> Install 클릭
+	STS.exe 경로에 lombok 유무 확인
