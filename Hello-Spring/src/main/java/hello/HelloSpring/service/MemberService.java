@@ -2,8 +2,6 @@ package hello.HelloSpring.service;
 
 import hello.HelloSpring.domain.Member;
 import hello.HelloSpring.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,10 +30,12 @@ public class MemberService {
 
     // 전체 회원 조회
     public List<Member> findMembers() {
+
         return memberRepository.findAll();
     }
 
     public Optional<Member> findOne(Long memberId) {
+
         return memberRepository.findById(memberId);
     }
 
