@@ -1,4 +1,4 @@
-package hello.HelloSpring.controller;
+package hello.hellospring.controller;
 
 public class MemberForm {
     private String name;
@@ -8,6 +8,7 @@ public class MemberForm {
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 }

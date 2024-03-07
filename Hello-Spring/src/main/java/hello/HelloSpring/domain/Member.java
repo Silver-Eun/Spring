@@ -1,4 +1,4 @@
-package hello.HelloSpring.domain;
+package hello.hellospring.domain;
 
 public class Member {
 

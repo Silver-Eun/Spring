@@ -1,4 +1,4 @@
-package hello.HelloSpring.controller;
+package hello.hellospring.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +11,7 @@ public class HelloController {
 
     @GetMapping("hello")
     public String hello(Model model) {
-        model.addAttribute("data", "HelloSpring");
+        model.addAttribute("data", "hellospring");
         return "hello";
     }
 
