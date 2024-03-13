@@ -90,7 +90,7 @@ class OwnerControllerTests {
 	void setup() {
 
 		Owner george = george();
-		given(this.owners.findByLastName(eq("Franklin"), any(Pageable.class)))
+		given(this.owners.findByFirstName(eq("Franklin"), any(Pageable.class)))
 			.willReturn(new PageImpl<Owner>(Lists.newArrayList(george)));
 
 		given(this.owners.findAll(any(Pageable.class))).willReturn(new PageImpl<Owner>(Lists.newArrayList(george)));
