@@ -44,21 +44,23 @@ class OwnerController {
 
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
-	private final OwnerRepository owners;
+	@Autowired
+	private OwnerRepository owners;
 
-	private final ApplicationContext applicationContext;
+//	private final ApplicationContext applicationContext;
 
-	public OwnerController(OwnerRepository clinicService, ApplicationContext applicationContext) {
+//	public OwnerController(OwnerRepository clinicService, ApplicationContext applicationContext) {
+	public OwnerController(OwnerRepository clinicService) {
 		this.owners = clinicService;
-		this.applicationContext = applicationContext;
+//		this.applicationContext = applicationContext;
 	}
 
-	@GetMapping("/bean")
-	@ResponseBody
-	public String bean() {
-		return "bean: " + applicationContext.getBean(OwnerRepository.class) + "\n"
-			+ "owners: " + this.owners;
-	}
+//	@GetMapping("/bean")
+//	@ResponseBody
+//	public String bean() {
+//		return "bean: " + applicationContext.getBean(OwnerRepository.class) + "\n"
+//			+ "owners: " + this.owners;
+//	}
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
