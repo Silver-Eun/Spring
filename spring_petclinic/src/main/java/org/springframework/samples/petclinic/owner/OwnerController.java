@@ -23,6 +23,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.samples.petclinic.sample.SampleRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,13 +44,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 class OwnerController {
 
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
+	private final OwnerRepository owners;
 
-	@Autowired
-	private OwnerRepository owners;
+//	@Autowired
+//	public void setOwners(OwnerRepository owners) {
+//		this.owners = owners;
+//	}
 
-//	private final ApplicationContext applicationContext;
+	//	private final ApplicationContext applicationContext;
 
 //	public OwnerController(OwnerRepository clinicService, ApplicationContext applicationContext) {
+
 	public OwnerController(OwnerRepository clinicService) {
 		this.owners = clinicService;
 //		this.applicationContext = applicationContext;
@@ -97,8 +102,7 @@ class OwnerController {
 	}
 
 	@GetMapping("/owners")
-	public String processFindForm(@RequestParam(defaultValue = "1") int page, Owner owner, BindingResult result,
-								  Model model) {
+	public String processFindForm(@RequestParam(defaultValue = "1") int page, Owner owner, BindingResult result, Model model) {
 		// allow parameterless GET request for /owners to return all records
 		if (owner.getFirstName() == null) {
 			owner.setFirstName(""); // empty string signifies broadest possible search
@@ -145,8 +149,7 @@ class OwnerController {
 	}
 
 	@PostMapping("/owners/{ownerId}/edit")
-	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable("ownerId") int ownerId,
-										 RedirectAttributes redirectAttributes) {
+	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable("ownerId") int ownerId, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("error", "There was an error in updating the owner.");
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
