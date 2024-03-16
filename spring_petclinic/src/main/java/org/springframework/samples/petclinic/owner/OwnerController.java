@@ -130,6 +130,7 @@ class OwnerController {
 		// multiple owners found
 		return addPaginationModel(page, model, ownersResults);
 	}
+
 	@LogExecutionTime
 	private String addPaginationModel(int page, Model model, Page<Owner> paginated) {
 		List<Owner> listOwners = paginated.getContent();
