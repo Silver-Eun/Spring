@@ -8,9 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -79,12 +81,25 @@ public class ArticleController {
         Article articleEntity = form.toEntity();
         // 2. Entity를 DB로 저장
         // 2 - 1 DB에서 기존 데이터를 가져옴
-        Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
+        Article article = articleRepository.findById(articleEntity.getId()).orElse(null);
         // 2 - 2 기존 데이터 값을 수정
-        if(target != null) {
+        if(article != null) {
             articleRepository.save(articleEntity);
         }
         // 3. 수정 결과 페이지로 리다이텍트
         return "redirect:/articles/" + articleEntity.getId();
+    }
+
+    @GetMapping("/articles/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes rttr) {
+        // 1. 삭제 대상을 가져옴
+        Article article = articleRepository.findById(id).orElse(null);
+        // 2. 대상을 삭제
+        if(article != null) {
+            articleRepository.deleteById(article.getId());
+            rttr.addFlashAttribute("msg", "삭제완료");
+        }
+        // 3. 결과페이지
+        return "redirect:/articles";
     }
 }
