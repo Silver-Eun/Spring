@@ -3,6 +3,7 @@ package com.example.hongPark.controller;
 import com.example.hongPark.dto.ArticleForm;
 import com.example.hongPark.entity.Article;
 import com.example.hongPark.repository.ArticleRepository;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,5 +61,15 @@ public class ArticleController {
         model.addAttribute("articleList", articleEntityList);
         // 3. 뷰 페이지 설정
         return "articles/index";
+    }
+
+    @GetMapping("/articles/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        // 수정할 데이터 가져오기
+        Article articleEntity = articleRepository.findById(id).orElse(null);
+        // 모델에 데이터 등록
+        model.addAttribute("article", articleEntity);
+        // 뷰 페이지 설정
+        return "articles/edit";
     }
 }
