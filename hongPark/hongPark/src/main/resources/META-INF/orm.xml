@@ -6,7 +6,7 @@
             http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
         version="2.2">
 
-    <named-native-query name="Commnet.findByNickname"
+    <named-native-query name="Comment.findByNickname"
     result-class="com.example.hongPark.entity.Comment">
         <query>
             <![CDATA[
