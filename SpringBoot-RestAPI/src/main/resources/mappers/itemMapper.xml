@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.SpringBoot_RestAPI.mapper.QuickMapper">
+    <select id="findById" parameterType="hashMap" resultType="hashMap">
+        SELECT ID, NAME
+        FROM ITEM
+        WHERE ID = #{id}
+    </select>
+
+    <insert id="registerItem" parameterType="hashmap">
+        INSER INTO ITEM (ID, NAME)
+        VALUES (#{id}, #{name})
+    </insert>
+</mapper>
