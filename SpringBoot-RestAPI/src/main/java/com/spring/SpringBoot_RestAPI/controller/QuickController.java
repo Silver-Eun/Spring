@@ -1,10 +1,10 @@
 package com.spring.SpringBoot_RestAPI.controller;
 
+import com.spring.SpringBoot_RestAPI.dto.ItemDto;
+import com.spring.SpringBoot_RestAPI.dto.ResponseDto;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -36,4 +36,11 @@ public class QuickController {
         return "ok";
     }
 
+    @PostMapping("/item")
+    public ResponseDto registerItem(@RequestBody ItemDto item) {
+        log.info("item: {}", item);
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setMessage("ok");
+        return responseDto;
+    }
 }
