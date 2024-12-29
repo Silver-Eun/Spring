@@ -16,6 +16,6 @@
 - **Channel**: 홍팍 스프링부트 입문  
 
 ### SpringBoot-RestAPI
-- **Period**: 2024.12.20 ~  
+- **Period**: 2024.12.20 ~ 2024.12.29
 - **Platform**: Inflearn  
 - **Course**: 1시간만에 끝내는 Spring Boot REST API 서비스 개발  
