@@ -1,6 +1,7 @@
 package com.spring.songjava.mvc.service;
 
 import com.spring.songjava.mvc.domain.Board;
+import com.spring.songjava.mvc.parameter.BoardParameter;
 import com.spring.songjava.mvc.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,12 @@ public class BoardService {
         return repository.get(boardSeq);
     }
 
-    public void save(Board board) {
-        Board b = repository.get(board.getBoardSeq());
-        if (b == null) {
-            repository.save(board);
+    public void save(BoardParameter boardParameter) {
+        Board board = repository.get(boardParameter.getBoardSeq());
+        if (board == null) {
+            repository.save(boardParameter);
         } else {
-            repository.update(board);
+            repository.update(boardParameter);
         }
     }
 

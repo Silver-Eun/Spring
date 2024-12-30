@@ -1,13 +1,9 @@
-package com.spring.songjava.mvc.domain;
+package com.spring.songjava.mvc.parameter;
 
-import java.util.Date;
-
-public class Board {
-
+public class BoardParameter {
     private int boardSeq;
     private String title;
     private String contents;
-    private Date regDate;
 
     public int getBoardSeq() {
         return boardSeq;
