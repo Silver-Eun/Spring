@@ -1,5 +1,7 @@
 package com.spring.songjava.mvc.controller;
 
+import com.spring.songjava.configuration.http.BaseResponse;
+import com.spring.songjava.configuration.http.BaseResponseCode;
 import com.spring.songjava.mvc.domain.Board;
 import com.spring.songjava.mvc.parameter.BoardParameter;
 import com.spring.songjava.mvc.service.BoardService;
@@ -23,8 +25,8 @@ public class BoardController {
 
     @GetMapping
     @Operation(summary = "상세 조회", description = "게시글 번호에 해당하는 상세 정보 조회")
-    public List<Board> getList() {
-        return boardService.getList();
+    public BaseResponse<List<Board>> getList() {
+        return new BaseResponse<List<Board>>(boardService.getList());
     }
 
     @GetMapping("/{boardSeq}")
@@ -32,8 +34,8 @@ public class BoardController {
     @Parameters({
             @Parameter(name = "boardSeq", description = "게시글 번호", example = "1")
     })
-    public Board get(@PathVariable int boardSeq) {
-        return boardService.get(boardSeq);
+    public BaseResponse<Board> get(@PathVariable int boardSeq) {
+        return new BaseResponse<Board>(boardService.get(boardSeq));
     }
 
     @PutMapping("/save")
@@ -43,9 +45,9 @@ public class BoardController {
             @Parameter(name = "title", description = "제목", example = "spring"),
             @Parameter(name = "contents", description = "내용", example = "spring 강의")
     })
-    public int save(BoardParameter board) {
+    public BaseResponse<Integer> save(BoardParameter board) {
         boardService.save(board);
-        return board.getBoardSeq();
+        return new BaseResponse<Integer>(board.getBoardSeq());
     }
 
     @DeleteMapping("/delete/{boardSeq}")
@@ -53,12 +55,12 @@ public class BoardController {
     @Parameters({
             @Parameter(name = "boardSeq", description = "게시글 번호", example = "1")
     })
-    public boolean delete(@PathVariable int boardSeq) {
+    public BaseResponse<Boolean> delete(@PathVariable int boardSeq) {
         Board board = boardService.get(boardSeq);
         if (board == null) {
-            return false;
+            return new BaseResponse<Boolean>(false);
         }
         boardService.delete(boardSeq);
-        return true;
+        return new BaseResponse<Boolean>(true);
     }
 }
