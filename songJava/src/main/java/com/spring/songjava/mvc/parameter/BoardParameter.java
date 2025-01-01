@@ -8,4 +8,12 @@ public class BoardParameter {
     public int getBoardSeq() {
         return boardSeq;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContents() {
+        return contents;
+    }
 }

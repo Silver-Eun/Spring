@@ -1,5 +1,6 @@
 package com.spring.songjava.mvc.controller;
 
+import com.spring.songjava.configuration.exception.BaseException;
 import com.spring.songjava.configuration.http.BaseResponse;
 import com.spring.songjava.configuration.http.BaseResponseCode;
 import com.spring.songjava.mvc.domain.Board;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +37,10 @@ public class BoardController {
             @Parameter(name = "boardSeq", description = "게시글 번호", example = "1")
     })
     public BaseResponse<Board> get(@PathVariable int boardSeq) {
+        Board board = boardService.get(boardSeq);
+        if (board == null) {
+            throw new BaseException(BaseResponseCode.DATA_IS_NULL, new String[]{"게시물"});
+        }
         return new BaseResponse<Board>(boardService.get(boardSeq));
     }
 
@@ -46,6 +52,14 @@ public class BoardController {
             @Parameter(name = "contents", description = "내용", example = "spring 강의")
     })
     public BaseResponse<Integer> save(BoardParameter board) {
+        // 제목 필수 체크
+        if (StringUtils.isEmpty(board.getTitle())) {
+            throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[]{"title", "제목"});
+        }
+        // 내용 필수 체크
+        if (StringUtils.isEmpty(board.getContents())) {
+            throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[]{"contents", "내용"});
+        }
         boardService.save(board);
         return new BaseResponse<Integer>(board.getBoardSeq());
     }

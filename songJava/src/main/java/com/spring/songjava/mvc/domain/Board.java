@@ -12,4 +12,5 @@ public class Board {
     public int getBoardSeq() {
         return boardSeq;
     }
+
 }
