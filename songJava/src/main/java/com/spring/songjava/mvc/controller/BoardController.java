@@ -51,7 +51,7 @@ public class BoardController {
             @Parameter(name = "title", description = "제목", example = "spring"),
             @Parameter(name = "contents", description = "내용", example = "spring 강의")
     })
-    public BaseResponse<Integer> save(BoardParameter board) {
+    public BaseResponse<Integer> save(@RequestBody BoardParameter board) {
         // 제목 필수 체크
         if (StringUtils.isEmpty(board.getTitle())) {
             throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[]{"title", "제목"});

@@ -4,45 +4,45 @@
 <mapper namespace="com.spring.songjava.mvc.repository.BoardRepository">
     <select id="getList" parameterType="com.spring.songjava.mvc.domain.Board"
             resultType="com.spring.songjava.mvc.domain.Board">
-        SELECT B.BOARD_SEQ,
-               B.TITLE,
-               B.CONTENTS,
-               B.REG_DATE
+        SELECT B.boardSeq,
+               B.title,
+               B.contents,
+               B.regDate
         FROM BOARD B
-        ORDER BY B.REG_DATE DESC
+        ORDER BY B.regDate DESC
     </select>
 
     <select id="get" parameterType="int"
             resultType="com.spring.songjava.mvc.domain.Board">
-        SELECT B.BOARD_SEQ,
-               B.TITLE,
-               B.CONTENTS,
-               B.REG_DATE
+        SELECT B.boardSeq,
+               B.title,
+               B.contents,
+               B.regDate
         FROM BOARD B
-        WHERE B.BOARD_SEQ = #{boardSeq}
+        WHERE B.boardSeq = #{boardSeq}
     </select>
 
     <insert id="save" parameterType="com.spring.songjava.mvc.parameter.BoardParameter" useGeneratedKeys="true"
             keyProperty="boardSeq">
         INSERT INTO BOARD
-        (TITLE,
-         CONTENTS,
-         REG_DATE)
-        VALUES (#{TITLE},
-                #{CONTENTS},
+        (title,
+         contents,
+         regDate)
+        VALUES (#{title},
+                #{contents},
                 NOW())
     </insert>
 
     <update id="update" parameterType="com.spring.songjava.mvc.domain.Board">
         UPDATE BOARD
-        SET TITLE    = #{TITLE},
-            CONTENTS = #{CONTENTS}
-        WHERE BOARD_SEQ = #{boardSeq}
+        SET title    = #{title},
+            contents = #{contents}
+        WHERE boardSeq = #{boardSeq}
     </update>
 
     <delete id="delete" parameterType="int">
         DELETE
         FROM BOARD
-        WHERE BOARD_SEQ = #{boardSeq}
+        WHERE boardSeq = #{boardSeq}
     </delete>
 </mapper>
