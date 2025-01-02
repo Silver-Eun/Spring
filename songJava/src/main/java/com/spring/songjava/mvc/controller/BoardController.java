@@ -5,6 +5,7 @@ import com.spring.songjava.configuration.http.BaseResponse;
 import com.spring.songjava.configuration.http.BaseResponseCode;
 import com.spring.songjava.framework.data.domain.MySQLPageRequest;
 import com.spring.songjava.framework.data.domain.PageRequestParameter;
+import com.spring.songjava.framework.data.web.bind.annotation.RequestConfig;
 import com.spring.songjava.mvc.domain.Board;
 import com.spring.songjava.mvc.parameter.BoardParameter;
 import com.spring.songjava.mvc.parameter.BoardSearchParameter;
@@ -56,6 +57,7 @@ public class BoardController {
     }
 
     @PutMapping("/save")
+    @RequestConfig
     @Operation(summary = "등록 / 수정 처리", description = "신규 게시글 저장 및 기존 게시글 업데이트")
     @Parameters({
             @Parameter(name = "boardSeq", description = "게시글 번호", example = "1"),
@@ -76,6 +78,7 @@ public class BoardController {
     }
 
     @DeleteMapping("/delete/{boardSeq}")
+    @RequestConfig
     @Operation(summary = "삭제 처리", description = "게시글 번호에 해당하는 게시글 삭제")
     @Parameters({
             @Parameter(name = "boardSeq", description = "게시글 번호", example = "1")

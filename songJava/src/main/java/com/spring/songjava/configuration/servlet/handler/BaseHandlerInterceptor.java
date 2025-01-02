@@ -1,10 +1,15 @@
 package com.spring.songjava.configuration.servlet.handler;
 
+import com.spring.songjava.configuration.exception.BaseException;
+import com.spring.songjava.configuration.http.BaseResponse;
+import com.spring.songjava.configuration.http.BaseResponseCode;
+import com.spring.songjava.framework.data.web.bind.annotation.RequestConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,6 +20,17 @@ public class BaseHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.info("preHandle requestURI : {}", request.getRequestURI());
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            logger.info("handlerMethod : {}", handlerMethod);
+            RequestConfig requestConfig = handlerMethod.getMethodAnnotation(RequestConfig.class);
+            if (requestConfig != null) {
+                // 로그인 체크가 필수인 경우
+                if (requestConfig.loginCheck()) {
+                    throw new BaseException(BaseResponseCode.LOGIN_REQUIRED);
+                }
+            }
+        }
         return true;
     }
 
