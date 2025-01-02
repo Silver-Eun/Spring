@@ -16,4 +16,12 @@ public class BoardParameter {
     public String getContents() {
         return contents;
     }
+
+    public BoardParameter() {
+    }
+
+    public BoardParameter(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
 }

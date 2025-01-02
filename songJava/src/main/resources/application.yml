@@ -1,6 +1,6 @@
 spring:
   datasource:
-    jdbc-url: jdbc:log4jdbc:mariadb://svc.sel5.cloudtype.app:30204/songJava
+    jdbcUrl: jdbc:log4jdbc:mariadb://svc.sel5.cloudtype.app:30204/songJava?allowMultiQueries=true
     #    jdbc-url: jdbc:mariadb://svc.sel5.cloudtype.app:30204/songJava
     username: root
     password: mysql

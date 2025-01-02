@@ -45,4 +45,19 @@
         FROM BOARD
         WHERE boardSeq = #{boardSeq}
     </delete>
+
+    <insert id="saveList" parameterType="map">
+        INSERT INTO BOARD
+        (title,
+        contents,
+        regDate)
+        values
+        <foreach collection="boardList" item="board" separator=",">
+            (
+            #{board.title},
+            #{board.contents},
+            NOW()
+            )
+        </foreach>
+    </insert>
 </mapper>

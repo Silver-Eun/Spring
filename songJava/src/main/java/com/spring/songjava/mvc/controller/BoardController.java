@@ -10,17 +10,22 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/board")
 @Tag(name = "게시판 API")
 public class BoardController {
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private BoardService boardService;
@@ -75,6 +80,50 @@ public class BoardController {
             return new BaseResponse<Boolean>(false);
         }
         boardService.delete(boardSeq);
+        return new BaseResponse<Boolean>(true);
+    }
+
+    @PutMapping("/saveList")
+    @Operation(summary = "대용량 등록처리1", description = "대용량 등록처리1")
+    public BaseResponse<Boolean> saveList1() {
+        int count = 0;
+        // 테스트를 위한 1000건의 랜덤 데이터 생성
+        List<BoardParameter> list = new ArrayList<BoardParameter>();
+        while (true) {
+            count++;
+            String title = RandomStringUtils.randomAlphabetic(10);
+            String contents = RandomStringUtils.randomAlphabetic(10);
+            list.add(new BoardParameter(title, contents));
+            if (count >= 1000) {
+                break;
+            }
+        }
+        long start = System.currentTimeMillis();
+        boardService.saveList1(list);
+        long end = System.currentTimeMillis();
+        logger.info("실행시간 : {}", (end - start) / 1000.0);
+        return new BaseResponse<Boolean>(true);
+    }
+
+    @PutMapping("/saveList2")
+    @Operation(summary = "대용량 등록처리2", description = "대용량 등록처리2")
+    public BaseResponse<Boolean> saveList2() {
+        int count = 0;
+        // 테스트를 위한 랜덤 1000건의 데이터를 생성
+        List<BoardParameter> list = new ArrayList<BoardParameter>();
+        while (true) {
+            count++;
+            String title = RandomStringUtils.randomAlphabetic(10);
+            String contents = RandomStringUtils.randomAlphabetic(10);
+            list.add(new BoardParameter(title, contents));
+            if (count >= 10000) {
+                break;
+            }
+        }
+        long start = System.currentTimeMillis();
+        boardService.saveList2(list);
+        long end = System.currentTimeMillis();
+        logger.info("실행 시간 : {}", (end - start) / 1000.0);
         return new BaseResponse<Boolean>(true);
     }
 }
