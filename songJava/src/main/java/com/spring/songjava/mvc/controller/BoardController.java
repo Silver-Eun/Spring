@@ -5,6 +5,7 @@ import com.spring.songjava.configuration.http.BaseResponse;
 import com.spring.songjava.configuration.http.BaseResponseCode;
 import com.spring.songjava.mvc.domain.Board;
 import com.spring.songjava.mvc.parameter.BoardParameter;
+import com.spring.songjava.mvc.parameter.BoardSearchParameter;
 import com.spring.songjava.mvc.service.BoardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,8 +33,8 @@ public class BoardController {
 
     @GetMapping
     @Operation(summary = "상세 조회", description = "게시글 번호에 해당하는 상세 정보 조회")
-    public BaseResponse<List<Board>> getList() {
-        return new BaseResponse<List<Board>>(boardService.getList());
+    public BaseResponse<List<Board>> getList(BoardSearchParameter parameter) {
+        return new BaseResponse<List<Board>>(boardService.getList(parameter));
     }
 
     @GetMapping("/{boardSeq}")
