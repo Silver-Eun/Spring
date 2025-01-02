@@ -1,5 +1,6 @@
 package com.spring.songjava.mvc.repository;
 
+import com.spring.songjava.framework.data.domain.PageRequestParameter;
 import com.spring.songjava.mvc.domain.Board;
 import com.spring.songjava.mvc.parameter.BoardParameter;
 import com.spring.songjava.mvc.parameter.BoardSearchParameter;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 @Repository
 public interface BoardRepository {
-    List<Board> getList(BoardSearchParameter parameter);
+    List<Board> getList(PageRequestParameter<BoardSearchParameter> pageRequestParameter);
 
     Board get(int boardSeq);
 

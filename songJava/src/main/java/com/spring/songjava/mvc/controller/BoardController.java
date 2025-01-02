@@ -3,6 +3,8 @@ package com.spring.songjava.mvc.controller;
 import com.spring.songjava.configuration.exception.BaseException;
 import com.spring.songjava.configuration.http.BaseResponse;
 import com.spring.songjava.configuration.http.BaseResponseCode;
+import com.spring.songjava.framework.data.domain.MySQLPageRequest;
+import com.spring.songjava.framework.data.domain.PageRequestParameter;
 import com.spring.songjava.mvc.domain.Board;
 import com.spring.songjava.mvc.parameter.BoardParameter;
 import com.spring.songjava.mvc.parameter.BoardSearchParameter;
@@ -33,8 +35,11 @@ public class BoardController {
 
     @GetMapping
     @Operation(summary = "상세 조회", description = "게시글 번호에 해당하는 상세 정보 조회")
-    public BaseResponse<List<Board>> getList(BoardSearchParameter parameter) {
-        return new BaseResponse<List<Board>>(boardService.getList(parameter));
+    public BaseResponse<List<Board>> getList(@Parameter BoardSearchParameter parameter,
+                                             @Parameter MySQLPageRequest pageRequest) {
+        logger.info("pageRequest : {}", pageRequest);
+        PageRequestParameter<BoardSearchParameter> pageRequestParameter = new PageRequestParameter<BoardSearchParameter>(pageRequest, parameter);
+        return new BaseResponse<List<Board>>(boardService.getList(pageRequestParameter));
     }
 
     @GetMapping("/{boardSeq}")

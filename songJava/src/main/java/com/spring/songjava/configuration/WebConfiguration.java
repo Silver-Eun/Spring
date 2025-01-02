@@ -3,15 +3,18 @@ package com.spring.songjava.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.spring.songjava.configuration.servlet.handler.BaseHandlerInterceptor;
+import com.spring.songjava.framework.data.web.MySQLPageRequestHandleMethodArgumentResolver;
 import com.spring.songjava.mvc.domain.BaseCodeLabelEnum;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.MediaType;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import java.util.List;
 import java.util.Locale;
 
 @Configuration
@@ -52,5 +55,11 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(baseHandlerInterceptor());
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        // 페이지 리졸버 등록
+        resolvers.add(new MySQLPageRequestHandleMethodArgumentResolver());
     }
 }
