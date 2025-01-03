@@ -4,6 +4,7 @@ public class BoardParameter {
     private int boardSeq;
     private String title;
     private String contents;
+    private boolean delYn;
 
     public int getBoardSeq() {
         return boardSeq;

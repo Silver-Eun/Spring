@@ -2,12 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.songjava.mvc.repository.BoardRepository">
+    <resultMap id="getListResultMap" type="com.spring.songjava.mvc.domain.Board">
+        <result column="delYn" property="delYn"
+                typeHandler="com.spring.songjava.mybatis.typehandler.StringValueBooleanTypeHandler"/>
+    </resultMap>
+
     <select id="getList" parameterType="com.spring.songjava.framework.data.domain.PageRequestParameter"
-            resultType="com.spring.songjava.mvc.domain.Board">
-        SELECT B.boardSeq,
+            resultMap="getListResultMap">
+        SELECT
+        B.boardSeq,
+        B.boardType,
         B.title,
         B.contents,
-        B.regDate
+        B.regDate,
+        b.delYn
         FROM BOARD B
         <where>
             -- 키워드 검색
@@ -42,10 +50,12 @@
         INSERT INTO BOARD
         (title,
          contents,
-         regDate)
+         regDate,
+         delYn)
         VALUES (#{title},
                 #{contents},
-                NOW())
+                NOW(),
+                #{delYn,typeHandler=com.spring.songjava.mybatis.typehandler.StringValueBooleanTypeHandler})
     </insert>
 
     <update id="update" parameterType="com.spring.songjava.mvc.domain.Board">

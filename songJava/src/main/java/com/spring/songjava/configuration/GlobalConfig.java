@@ -15,7 +15,6 @@ import org.springframework.core.io.ResourceLoader;
 import java.util.Properties;
 
 @Configuration
-@ConfigurationProperties(prefix = "scheduler")
 public class GlobalConfig {
 
     final Logger logger = (Logger) LoggerFactory.getLogger(getClass());

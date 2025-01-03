@@ -9,6 +9,7 @@ public class Board {
     private String title;
     private String contents;
     private Date regDate;
+    private boolean delYn;
 
     public int getBoardSeq() {
         return boardSeq;
