@@ -5,14 +5,17 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.core.io.ResourceLoader;
 
 import java.util.Properties;
 
+@Configuration
+@ConfigurationProperties(prefix = "scheduler")
 public class GlobalConfig {
 
     final Logger logger = (Logger) LoggerFactory.getLogger(getClass());
@@ -23,7 +26,8 @@ public class GlobalConfig {
     @Autowired
     private ResourceLoader resourceLoader;
 
-    private String uploadPath;
+    private String uploadFilePath;
+    private String scheduleCronExample1;
 
     private Boolean local;
     private Boolean dev;
@@ -39,10 +43,11 @@ public class GlobalConfig {
         }
         String resourcePath = String.format("classpath:globals/global-%s.properties", activeProfile);
         try {
-            Resource resource = (Resource) resourceLoader.getResource(resourcePath);
+            Resource resource = resourceLoader.getResource(resourcePath);
             Properties properties = PropertiesLoaderUtils.loadProperties(resource);
-            uploadPath = properties.getProperty("uploadPath");
 
+            this.uploadFilePath = properties.getProperty("uploadPath");
+            this.scheduleCronExample1 = properties.getProperty("schedule.cron.example1");
             this.local = activeProfile.equals("local");
             this.dev = activeProfile.equals("dev");
             this.prod = activeProfile.equals("prod");
@@ -52,7 +57,11 @@ public class GlobalConfig {
     }
 
     public String getUploadPath() {
-        return uploadPath;
+        return uploadFilePath;
+    }
+
+    public String getScheduleCronExample1() {
+        return scheduleCronExample1;
     }
 
     public boolean isLocal() {
