@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -47,7 +48,7 @@ public class FileController {
         String currentDate = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
         String uploadFilePath = config.getUploadFilePath() + currentDate + "/";
         logger.debug("uploadFilePath : {}", uploadFilePath);
-        String prefix = multipartFile.getOriginalFilename().substring(
+        String prefix = Objects.requireNonNull(multipartFile.getOriginalFilename()).substring(
                 multipartFile.getOriginalFilename().lastIndexOf(".") + 1, multipartFile.getOriginalFilename().length());
         String filename = UUID.randomUUID().toString() + "." + prefix;
         logger.info("filename : {}", filename);

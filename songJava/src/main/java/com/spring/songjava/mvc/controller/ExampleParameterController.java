@@ -65,9 +65,8 @@ public class ExampleParameterController {
 
     @PostMapping("/example6/saveData")
     @ResponseBody
-    public Map<String, Object> example6(@RequestBody ExampleRequestBodyUser requestBody,
-                                        Model model) {
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+    public Map<String, Object> example6(@RequestBody ExampleRequestBodyUser requestBody) {
+        Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", true);
         logger.info("requestBody : {}", requestBody);
         return resultMap;

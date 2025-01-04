@@ -13,4 +13,12 @@ public class PageRequestParameter<T> {
         this.pageRequest = pageRequest;
         this.parameter = parameter;
     }
+
+    public T getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(T parameter) {
+        this.parameter = parameter;
+    }
 }

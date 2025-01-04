@@ -1,22 +1,13 @@
 package com.spring.songjava.mvc.parameter;
 
+import lombok.Data;
+
+@Data
 public class BoardParameter {
     private int boardSeq;
     private String title;
     private String contents;
     private boolean delYn;
-
-    public int getBoardSeq() {
-        return boardSeq;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContents() {
-        return contents;
-    }
 
     public BoardParameter() {
     }

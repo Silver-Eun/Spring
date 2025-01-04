@@ -1,11 +1,11 @@
 spring:
   datasource:
     jdbcUrl: jdbc:log4jdbc:mariadb://svc.sel5.cloudtype.app:30204/songJava?allowMultiQueries=true
-    #    jdbc-url: jdbc:mariadb://svc.sel5.cloudtype.app:30204/songJava
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    #    jdbcUrl: jdbc:mariadb://svc.sel5.cloudtype.app:30204/songJava
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: mysql
-    #    driver-class-name: com.mysql.cj.jdbc.Driver
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
   mvc:
     view:
       prefix: /WEB-INF/views/
