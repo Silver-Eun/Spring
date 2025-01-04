@@ -1,5 +1,6 @@
 package com.spring.songjava.mvc.service;
 
+import com.spring.songjava.mvc.domain.UploadFile;
 import com.spring.songjava.mvc.parameter.UploadFileParameter;
 import com.spring.songjava.mvc.repository.UploadFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,5 +14,9 @@ public class UploadFileService {
 
     public void save(UploadFileParameter parameter) {
         repository.save(parameter);
+    }
+
+    public UploadFile get(int uploadFIleSeq) {
+        return repository.get(uploadFIleSeq);
     }
 }

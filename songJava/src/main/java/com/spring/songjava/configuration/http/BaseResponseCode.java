@@ -6,6 +6,7 @@ public enum BaseResponseCode {
     ERROR,             // 에러
     LOGIN_REQUIRED,    //
     DATA_IS_NULL,      // Null
-    VALIDATE_REQUIRED; // 필수 체크
+    VALIDATE_REQUIRED, // 필수 체크
+    UPLOAD_FILE_IS_NULL;//
 
 }

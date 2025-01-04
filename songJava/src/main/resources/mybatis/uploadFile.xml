@@ -2,6 +2,18 @@
 <!DOCTYPE mapper PUBLIC ".//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.songjava.mvc.repository.UploadFileRepository">
+    <select id="get" parameterType="int" resultType="com.spring.songjava.mvc.domain.UploadFile">
+        SELECT pathName,
+               fileName,
+               originalFileName,
+               size,
+               contentType,
+               resourcePathName,
+               regDate
+        FROM UPLOADFILE
+        where uploadfileSeq = #{uploadFileSeq}
+    </select>
+
     <insert id="save" parameterType="com.spring.songjava.mvc.parameter.UploadFileParameter">
         INSERT INTO UPLOADFILE
         (pathName,
