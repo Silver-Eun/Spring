@@ -12,4 +12,8 @@ public class UploadFile {
     private String size;
     private String contentType;
     private String resourcePathname;
+
+    public String getPathname() {
+        return pathname;
+    }
 }

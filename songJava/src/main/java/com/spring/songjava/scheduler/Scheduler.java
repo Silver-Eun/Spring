@@ -15,6 +15,6 @@ public class Scheduler {
     //    @Scheduled(cron = "#{@schedulerCronExample1}")
     @Scheduled(cron = "*/5 * * * * *")
     public void schedule1() {
-        logger.info("schedule1 동작하고 있음 : {}", Calendar.getInstance().getTime());
+//        logger.info("schedule1 동작하고 있음 : {}", Calendar.getInstance().getTime());
     }
 }
