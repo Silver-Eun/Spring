@@ -18,13 +18,16 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+//@RestController
+@Controller
 @RequestMapping("/board")
 @Tag(name = "게시판 API")
 public class BoardController {
@@ -34,8 +37,9 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping
-    @Operation(summary = "상세 조회", description = "게시글 번호에 해당하는 상세 정보 조회")
+    @GetMapping("/")
+    @ResponseBody
+    @Operation(summary = "목록 조회", description = "게시글 목록 정보 조회")
     public BaseResponse<List<Board>> getList(@Parameter BoardSearchParameter parameter,
                                              @Parameter MySQLPageRequest pageRequest) {
         logger.info("pageRequest : {}", pageRequest);
@@ -44,7 +48,8 @@ public class BoardController {
     }
 
     @GetMapping("/{boardSeq}")
-    @Operation(summary = "목록 조회", description = "게시글 목록 정보 조회")
+    @ResponseBody
+    @Operation(summary = "상세 조회", description = "게시글 번호에 해당하는 상세 정보 조회")
     @Parameters({
             @Parameter(name = "boardSeq", description = "게시글 번호", example = "1")
     })
@@ -56,15 +61,29 @@ public class BoardController {
         return new BaseResponse<Board>(boardService.get(boardSeq));
     }
 
-    @PutMapping("/save")
-    @RequestConfig
+    // 등록 / 수정 화면
+    @GetMapping("/form")
+    @RequestConfig(loginCheck = false)
+    public void form(BoardParameter parameter, Model model) {
+        if (parameter.getBoardSeq() > 0) {
+            Board board = boardService.get(parameter.getBoardSeq());
+            model.addAttribute("board", board);
+        }
+        model.addAttribute("parameter", parameter);
+    }
+
+    //    @PutMapping("/save")
+    @PostMapping("/save")
+    @RequestConfig(loginCheck = false)
+    @ResponseBody
     @Operation(summary = "등록 / 수정 처리", description = "신규 게시글 저장 및 기존 게시글 업데이트")
     @Parameters({
             @Parameter(name = "boardSeq", description = "게시글 번호", example = "1"),
             @Parameter(name = "title", description = "제목", example = "spring"),
             @Parameter(name = "contents", description = "내용", example = "spring 강의")
     })
-    public BaseResponse<Integer> save(@RequestBody BoardParameter board) {
+//    public BaseResponse<Integer> save(@RequestBody BoardParameter board) {
+    public BaseResponse<Integer> save(BoardParameter board) {
         // 제목 필수 체크
         if (StringUtils.isEmpty(board.getTitle())) {
             throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[]{"title", "제목"});
@@ -74,7 +93,7 @@ public class BoardController {
             throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[]{"contents", "내용"});
         }
         boardService.save(board);
-        return new BaseResponse<Integer>(board.getBoardSeq());
+        return new BaseResponse<>(board.getBoardSeq());
     }
 
     @DeleteMapping("/delete/{boardSeq}")
