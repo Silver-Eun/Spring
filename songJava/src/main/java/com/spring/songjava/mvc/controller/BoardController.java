@@ -37,14 +37,19 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping("/")
-    @ResponseBody
+    //    @GetMapping("/")
+    //    @ResponseBody
+    @GetMapping("/list")
     @Operation(summary = "목록 조회", description = "게시글 목록 정보 조회")
-    public BaseResponse<List<Board>> getList(@Parameter BoardSearchParameter parameter,
-                                             @Parameter MySQLPageRequest pageRequest) {
+//  public BaseResponse<List<Board>> getList(@Parameter BoardSearchParameter parameter,
+    public void list(BoardSearchParameter parameter,
+                     MySQLPageRequest pageRequest,
+                     Model model) {
         logger.info("pageRequest : {}", pageRequest);
-        PageRequestParameter<BoardSearchParameter> pageRequestParameter = new PageRequestParameter<BoardSearchParameter>(pageRequest, parameter);
-        return new BaseResponse<List<Board>>(boardService.getList(pageRequestParameter));
+        PageRequestParameter<BoardSearchParameter> pageRequestParameter
+                = new PageRequestParameter<BoardSearchParameter>(pageRequest, parameter);
+        List<Board> boardList = boardService.getList(pageRequestParameter);
+        model.addAttribute("boardList", boardList);
     }
 
     @GetMapping("/{boardSeq}")
