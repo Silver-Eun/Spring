@@ -46,4 +46,29 @@
 </nav>
 <sitemesh:write property="body"/>
 </body>
+<script>
+    $(function () {
+
+        const $form = $('#form');
+        $form.bind('submit', function () {
+
+            $.ajax({
+                url: '/${menuType}/save',
+                type: 'post',
+                data: $form.serialize(),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.code === 'SUCCESS') {
+                        alert("저장되었습니다");
+                        location.href = '/${menuType}/' + response.data;
+                    } else {
+                        alert(data.message);
+                    }
+                    console.log(data)
+                }
+            })
+            return false;
+        })
+    })
+</script>
 </html>

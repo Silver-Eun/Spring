@@ -49,8 +49,10 @@ public class BoardController {
                        Model model) {
         logger.info("menuType : {}", menuType);
         logger.info("pageRequest : {}", pageRequest);
+
+        parameter.setBoardType(menuType.boardType());
         PageRequestParameter<BoardSearchParameter> pageRequestParameter
-                = new PageRequestParameter<BoardSearchParameter>(pageRequest, parameter);
+                = new PageRequestParameter<>(pageRequest, parameter);
         List<Board> boardList = boardService.getList(pageRequestParameter);
         model.addAttribute("boardList", boardList);
         model.addAttribute("menuType", menuType);
@@ -117,6 +119,7 @@ public class BoardController {
     })
 //    public BaseResponse<Integer> save(@RequestBody BoardParameter board) {
     public BaseResponse<Integer> save(@PathVariable MenuType menuType,
+                                      BoardParameter parameter,
                                       BoardParameter board) {
         // 제목 필수 체크
         if (StringUtils.isEmpty(board.getTitle())) {
@@ -126,6 +129,7 @@ public class BoardController {
         if (StringUtils.isEmpty(board.getContents())) {
             throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[]{"contents", "내용"});
         }
+        parameter.setBoardType(menuType.boardType());
         boardService.save(board);
         return new BaseResponse<>(board.getBoardSeq());
     }
