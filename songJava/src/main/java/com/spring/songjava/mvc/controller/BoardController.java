@@ -7,6 +7,7 @@ import com.spring.songjava.framework.data.domain.MySQLPageRequest;
 import com.spring.songjava.framework.data.domain.PageRequestParameter;
 import com.spring.songjava.framework.data.web.bind.annotation.RequestConfig;
 import com.spring.songjava.mvc.domain.Board;
+import com.spring.songjava.mvc.domain.MenuType;
 import com.spring.songjava.mvc.parameter.BoardParameter;
 import com.spring.songjava.mvc.parameter.BoardSearchParameter;
 import com.spring.songjava.mvc.service.BoardService;
@@ -28,7 +29,7 @@ import java.util.List;
 
 //@RestController
 @Controller
-@RequestMapping("/board")
+//@RequestMapping("/board")
 @Tag(name = "게시판 API")
 public class BoardController {
 
@@ -39,20 +40,24 @@ public class BoardController {
 
     //    @GetMapping("/")
     //    @ResponseBody
-    @GetMapping("/list")
+    @GetMapping("/{menuType}")
     @Operation(summary = "목록 조회", description = "게시글 목록 정보 조회")
 //  public BaseResponse<List<Board>> getList(@Parameter BoardSearchParameter parameter,
-    public void list(BoardSearchParameter parameter,
-                     MySQLPageRequest pageRequest,
-                     Model model) {
+    public String list(@PathVariable MenuType menuType,
+                       BoardSearchParameter parameter,
+                       MySQLPageRequest pageRequest,
+                       Model model) {
+        logger.info("menuType : {}", menuType);
         logger.info("pageRequest : {}", pageRequest);
         PageRequestParameter<BoardSearchParameter> pageRequestParameter
                 = new PageRequestParameter<BoardSearchParameter>(pageRequest, parameter);
         List<Board> boardList = boardService.getList(pageRequestParameter);
         model.addAttribute("boardList", boardList);
+
+        return "/board/list";
     }
 
-    @GetMapping("/{boardSeq}")
+    @GetMapping("/detail/{boardSeq}")
 //    @ResponseBody
 //    @Operation(summary = "상세 조회", description = "게시글 번호에 해당하는 상세 정보 조회")
 //    @Parameters({
