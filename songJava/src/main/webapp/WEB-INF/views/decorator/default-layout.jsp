@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <sitemesh:write property="head"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -43,68 +44,6 @@
         </div>
     </div>
 </nav>
-<form id="form" method="get" action="/list">
-    <div class="row mb-3">
-        <label for="keyword" class="col-sm-2 col-form-label"><spring:message code="search.keyword"/></label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="keyword" id="keyword" value="${parameter.keyword}"
-                   placeholder="<spring:message code="placeholder.replace"/>">
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary"><spring:message code="button.search"/></button>
-</form>
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col"><spring:message code="board.title"/></th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="board" items="${boardList}" varStatus="status">
-        <tr>
-            <th scope="row">${status.count}</th>
-            <td><a href="/${menuType}/${board.boardSeq}">${board.title}</a></td>
-            <td>${board.viewcount}</td>
-            <td><fmt:formatDate value="${board.regDate}" pattern="yyyy.MM.dd HH:mm"/></td>
-        </tr>
-    </c:forEach>
-    <c:if test="${fn:length(boardList) == 0}">
-        <tr>
-            <td colspan="4"><spring:message code="msg.board.empty"/></td>
-        </tr>
-    </c:if>
-    </tbody>
-</table>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-    <a href="/${menuType}/form" class="btn btn-primary" type="button"><spring:message code="button.form"/></a>
-</div>
-<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-<script>
-    $(function () {
-
-        const $form = $('#form');
-        $form.bind('submit', function () {
-
-            $.ajax({
-                url: '/${menuType}/save',
-                type: 'post',
-                data: $form.serialize(),
-                dataType: 'json',
-                success: function (data) {
-                    if (data.code === 'SUCCESS') {
-                        alert("저장되었습니다");
-                    } else {
-                        alert(data.message);
-                    }
-                    console.log(data)
-                }
-            })
-            return false;
-        })
-    })
-</script>
+<sitemesh:write property="body"/>
 </body>
 </html>

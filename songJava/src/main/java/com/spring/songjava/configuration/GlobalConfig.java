@@ -48,7 +48,7 @@ public class GlobalConfig {
 
             this.uploadFilePath = properties.getProperty("uploadPath");
             this.uploadResourcePath = properties.getProperty("uploadFile.resourcePath");
-            this.scheduleCronExample1 = properties.getProperty("schedule.cron.example1");
+            this.scheduleCronExample1 = properties.getProperty("scheduler.cron.example1");
             this.local = activeProfile.equals("local");
             this.dev = activeProfile.equals("dev");
             this.prod = activeProfile.equals("prod");

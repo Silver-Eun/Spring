@@ -53,40 +53,46 @@ public class BoardController {
                 = new PageRequestParameter<BoardSearchParameter>(pageRequest, parameter);
         List<Board> boardList = boardService.getList(pageRequestParameter);
         model.addAttribute("boardList", boardList);
-
+        model.addAttribute("menuType", menuType);
         return "/board/list";
     }
 
-    @GetMapping("/detail/{boardSeq}")
+    @GetMapping("/{menuType}/{boardSeq}")
 //    @ResponseBody
 //    @Operation(summary = "상세 조회", description = "게시글 번호에 해당하는 상세 정보 조회")
 //    @Parameters({
 //            @Parameter(name = "boardSeq", description = "게시글 번호", example = "1")
 //    })
 //    public BaseResponse<Board> get(@PathVariable int boardSeq) {
-    public String detail(@PathVariable int boardSeq, Model model) {
+    public String detail(@PathVariable MenuType menuType, @PathVariable int boardSeq, Model model) {
         Board board = boardService.get(boardSeq);
         if (board == null) {
             throw new BaseException(BaseResponseCode.DATA_IS_NULL, new String[]{"게시물"});
         }
         model.addAttribute("board", board);
+        model.addAttribute("menuType", menuType);
         return "/board/detail";
     }
 
     // 등록 / 수정 화면
-    @GetMapping("/form")
+    @GetMapping("/{menuType}/form")
     @RequestConfig(loginCheck = false)
-    public void form(BoardParameter parameter, Model model) {
+    public String form(@PathVariable MenuType menuType,
+                       BoardParameter parameter, Model model) {
         if (parameter.getBoardSeq() > 0) {
             Board board = boardService.get(parameter.getBoardSeq());
             model.addAttribute("board", board);
         }
         model.addAttribute("parameter", parameter);
+        model.addAttribute("menuType", menuType);
+
+        return "/board/form";
     }
 
-    @GetMapping("/edit/{boardSeq}")
+    @GetMapping("/{menuType}/edit/{boardSeq}")
     @RequestConfig(loginCheck = false)
-    public String edir(@PathVariable(required = true) int boardSeq,
+    public String edit(@PathVariable MenuType menuType,
+                       @PathVariable(required = true) int boardSeq,
                        BoardParameter parameter, Model model) {
         Board board = boardService.get(parameter.getBoardSeq());
         if (board == null) {
@@ -94,12 +100,13 @@ public class BoardController {
         }
         model.addAttribute("board", board);
         model.addAttribute("parameter", parameter);
+        model.addAttribute("menuType", menuType);
 
         return "/board/form";
     }
 
     //    @PutMapping("/save")
-    @PostMapping("/save")
+    @PostMapping("/{menuType}/save")
     @RequestConfig(loginCheck = false)
     @ResponseBody
     @Operation(summary = "등록 / 수정 처리", description = "신규 게시글 저장 및 기존 게시글 업데이트")
@@ -109,7 +116,8 @@ public class BoardController {
             @Parameter(name = "contents", description = "내용", example = "spring 강의")
     })
 //    public BaseResponse<Integer> save(@RequestBody BoardParameter board) {
-    public BaseResponse<Integer> save(BoardParameter board) {
+    public BaseResponse<Integer> save(@PathVariable MenuType menuType,
+                                      BoardParameter board) {
         // 제목 필수 체크
         if (StringUtils.isEmpty(board.getTitle())) {
             throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[]{"title", "제목"});

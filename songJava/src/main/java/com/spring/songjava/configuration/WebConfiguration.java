@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.spring.songjava.configuration.servlet.handler.BaseHandlerInterceptor;
 import com.spring.songjava.framework.data.web.MySQLPageRequestHandleMethodArgumentResolver;
 import com.spring.songjava.mvc.domain.BaseCodeLabelEnum;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -57,6 +58,13 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Bean
     public GlobalConfig config() {
         return new GlobalConfig();
+    }
+
+    @Bean
+    public FilterRegistrationBean<SitemeshConfiguration> sitemeshBean() {
+        FilterRegistrationBean<SitemeshConfiguration> sitemesh = new FilterRegistrationBean<SitemeshConfiguration>();
+        sitemesh.setFilter(new SitemeshConfiguration());
+        return sitemesh;
     }
 
     @Override

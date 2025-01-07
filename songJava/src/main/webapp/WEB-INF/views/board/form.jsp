@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container">
-    <form id="form" method="post" action="/board/save">
+    <form id="form" method="post" action="/${menuType}/save">
         <input type="hidden" name="boardSeq" id="boardSeq" value="${board == null ? 0 : board.boardSeq}">
         <input type="hidden" name="boardType" id="boardType" value="COMMUNITY">
         <div class="row mb-3">
@@ -38,13 +38,14 @@
         $form.bind('submit', function () {
 
             $.ajax({
-                url: '/board/save',
+                url: '/${menuType}/save',
                 type: 'post',
                 data: $form.serialize(),
                 dataType: 'json',
-                success: function (data) {
-                    if (data.code === 'SUCCESS') {
+                success: function (response) {
+                    if (response.code === 'SUCCESS') {
                         alert("저장되었습니다");
+                        location.href = '/${menuType}/' + response.data;
                     } else {
                         alert(data.message);
                     }
