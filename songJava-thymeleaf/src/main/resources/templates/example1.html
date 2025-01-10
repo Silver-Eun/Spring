@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <p th:text="${name}"></p>
+    <ul>
+    <li th:each="value : ${values}" th:text="${value}"></li>
+    </ul>
+</body>
+</html>

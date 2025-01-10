@@ -1,0 +1,13 @@
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+
+  datasource:
+    url: jdbc:mariadb://svc.sel5.cloudtype.app:30204/songJava
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: mysql
