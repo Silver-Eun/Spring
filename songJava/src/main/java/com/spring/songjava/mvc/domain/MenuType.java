@@ -2,7 +2,7 @@ package com.spring.songjava.mvc.domain;
 
 public enum MenuType {
 
-    communit(BoardType.COMMUNITY, "menu.community", "/community"),
+    community(BoardType.COMMUNITY, "menu.community", "/community"),
     notice(BoardType.NOTICE, "menu.notice", "/notice"),
     faq(BoardType.FAQ, "menu.faq", "/faq"),
     inquiry(BoardType.INQUIRY, "menu.inquiry", "/inquiry"),
