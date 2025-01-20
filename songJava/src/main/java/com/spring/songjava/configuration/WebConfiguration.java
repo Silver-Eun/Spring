@@ -63,7 +63,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Bean
     public FilterRegistrationBean<SitemeshConfiguration> sitemeshBean() {
-        FilterRegistrationBean<SitemeshConfiguration> sitemesh = new FilterRegistrationBean<SitemeshConfiguration>();
+        FilterRegistrationBean<SitemeshConfiguration> sitemesh = new FilterRegistrationBean<>();
         sitemesh.setFilter(new SitemeshConfiguration());
         return sitemesh;
     }
@@ -94,6 +94,6 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:8080");
+        registry.addMapping("/**").allowedOrigins("http://localhost:8080").allowedMethods("*");
     }
 }
