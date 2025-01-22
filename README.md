@@ -21,6 +21,6 @@
 - **Course**: 1시간만에 끝내는 Spring Boot REST API 서비스 개발
 
 ### songJava
-- **Period**: 2024.12.29 ~ 
+- **Period**: 2024.12.29 ~ 2025.01.20
 - **Platform**: Inflearn
 - **Course**: 자바 스프링부트 활용 웹개발 실무용
